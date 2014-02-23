@@ -145,6 +145,7 @@ public class StartupListener implements ServletContextListener {
      * @param servletContextEvent The servlet context event
      */
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
+        log.info("SHUTDOWN...");
         //LogFactory.release(Thread.currentThread().getContextClassLoader());
         //Commented out the above call to avoid warning when SLF4J in classpath.
         //WARN: The method class org.apache.commons.logging.impl.SLF4JLogFactory#release() was invoked.
