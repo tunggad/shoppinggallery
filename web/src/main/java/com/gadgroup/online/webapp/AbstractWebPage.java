@@ -83,6 +83,4 @@ public abstract class AbstractWebPage extends WebPage {
     protected Label createPageMessage(String resourceKey) {
         return new Label("pageMessage", new ResourceModel(resourceKey));
     }
-
-
 }
