@@ -23,7 +23,7 @@ public class ShopProduct {
     // 8-digits EAN-8 Code
     private String ean8;
 
-    // 13-degits EAN-13 Code
+    // 13-digits EAN-13 Code
     private String ean13;
 
     // 10-digits ISBN-10 Code
@@ -31,5 +31,5 @@ public class ShopProduct {
 
     private Integer stock = 0;
     private Shop shop;
-    private Timestamp stockLastupdate;
+    private Timestamp stockLastUpdate;
 }

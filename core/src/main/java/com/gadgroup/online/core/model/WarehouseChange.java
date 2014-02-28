@@ -19,12 +19,5 @@ public class WarehouseChange {
     private Timestamp estimatedArrivalDate;
     private Timestamp arrivalDate;
 
-    /*
-    1 - packed
-    2 - sent
-    3 - arrived & not confirmed yet
-    4 - arrived & confirmed
-    5 - missed
-     */
-    private Integer status;
+    private PackageStatusType status;
 }

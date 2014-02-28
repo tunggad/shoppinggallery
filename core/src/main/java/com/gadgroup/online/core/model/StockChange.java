@@ -17,14 +17,7 @@ public class StockChange {
     private Warehouse warehouseLocation;
     private Integer number;
 
-    /*
-    ODD is Upstock, EVEN is Downstock
-    1 - Stock-In
-    2 - Stock-Out (Sell)
-    3 - Downstock-Correction
-    4 - Upstock-Correction
-     */
-    private Integer type;
+    private StockChangeType type;
 
     private Timestamp timestamp;
 
