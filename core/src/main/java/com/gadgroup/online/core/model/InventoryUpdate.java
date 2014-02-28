@@ -17,7 +17,7 @@ public class InventoryUpdate {
     private Integer stock;
 
     /*
-    ODD is downstock, EVEN is upstock
+    ODD is upstock, EVEN is downstock
 
     1 - Stock-In (Receipt of goods delivery)
     2 - Stock-Out (Sell, Dispatch of goods)

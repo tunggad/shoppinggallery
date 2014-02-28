@@ -1,9 +1,11 @@
 package com.gadgroup.online.core.model;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.appfuse.model.BaseObject;
 import org.appfuse.model.User;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,17 +58,36 @@ public class Shop extends BaseObject implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return null;
+    public String toString()
+    {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("name", name)
+                .append("owner", owner)
+                .append("employers",employers)
+                .toString();
     }
 
     @Override
-    public boolean equals(Object o) {
-        return false;
+    public boolean equals(final Object other)
+    {
+        if (!(other instanceof Shop))
+            return false;
+        Shop castOther = (Shop) other;
+        return new EqualsBuilder()
+                .append(name, castOther.name)
+                .append(owner, castOther.owner)
+                .append(employers, castOther.employers)
+                .isEquals();
     }
 
     @Override
-    public int hashCode() {
-        return 0;
+    public int hashCode()
+    {
+        return new HashCodeBuilder()
+                .append(name)
+                .append(owner)
+                .append(employers)
+                .toHashCode();
     }
 }
