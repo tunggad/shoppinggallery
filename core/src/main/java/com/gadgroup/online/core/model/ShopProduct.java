@@ -1,6 +1,7 @@
 package com.gadgroup.online.core.model;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 /**
  * Represents a product of a shop selling it.
@@ -29,7 +30,8 @@ public class ShopProduct {
     // 10-digits ISBN-10 Code
     private String isbn10;
 
-    private Integer stock = 0;
+    private Integer inventory = 0;
+    private Set<InventoryAtWarehouse> warehouseInventories;
     private Shop shop;
-    private Timestamp stockLastupdate;
+    private Timestamp inventoryLastupdate;
 }

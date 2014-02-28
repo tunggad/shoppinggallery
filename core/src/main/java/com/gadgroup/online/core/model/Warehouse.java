@@ -5,7 +5,7 @@ import org.appfuse.model.User;
 import java.util.Set;
 
 /**
- * Represents a abstract warehouse location where a product is warehoused. The entire stock
+ * Represents a abstract warehouse location where a product is warehoused. The entire inventory
  * of a product is the sum of all warehouse-stocks.
  * It can be an address, a geo-location or simple a abstract warehouse identifier.
  *
