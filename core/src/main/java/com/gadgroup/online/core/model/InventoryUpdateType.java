@@ -37,7 +37,7 @@ public enum InventoryUpdateType {
         this.value = value;
     }
 
-    public InventoryUpdateType valueOf(Long id) {
+    public static InventoryUpdateType valueOf(Long id) {
         if (id == STOCK_IN.id) return STOCK_IN;
         else if (id == STOCK_OUT.id) return STOCK_OUT;
         else if (id == UP_STOCK_CORRECTION.id) return UP_STOCK_CORRECTION;
