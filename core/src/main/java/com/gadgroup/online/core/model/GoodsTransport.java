@@ -10,7 +10,7 @@ import java.util.Set;
  *
  * Created by tvu on 28.02.14.
  */
-public class GoodsTranssport {
+public class GoodsTransport {
     private Long id;
     private User sender;
     private User receiver;

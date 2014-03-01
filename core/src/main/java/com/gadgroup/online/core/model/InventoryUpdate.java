@@ -17,12 +17,11 @@ public class InventoryUpdate {
     private Integer stock;
 
     /*
-    ODD is upstock, EVEN is downstock
-
-    1 - Stock-In (Receipt of goods delivery)
-    2 - Stock-Out (Sell, Dispatch of goods)
-    3 - Downstock-Correction
-    4 - Upstock-Correction
+    ODD is UpStock, EVEN is DownStock
+    1 - Stock-In
+    2 - Stock-Out (Sell)
+    3 - Upstock-Correction
+    4 - DownStock-Correction
      */
     private Integer type;
 
