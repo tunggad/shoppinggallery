@@ -1,11 +1,8 @@
 package com.gadgroup.online.core.model;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.appfuse.model.BaseObject;
 import org.appfuse.model.User;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,13 +15,20 @@ import java.util.Set;
  *
  * Created by tvu on 24.02.14.
  */
-public class Shop extends BaseObject implements Serializable {
+@Entity
+public class Shop implements Serializable {
 
     private Long id;
     private String name;
+    // 3-digits ISO currency code, default for debit transactions;
+    private String debitCurrencyCode;
+    // 3-digits ISO currency code, default for credit transaction;
+    private String creditCurrencyCode;
     private User owner;
     private Set<User> employers = new HashSet<User>();
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -33,10 +37,25 @@ public class Shop extends BaseObject implements Serializable {
         return name;
     }
 
+    public String getDebitCurrencyCode() {
+        return debitCurrencyCode;
+    }
+
+    public String getCreditCurrencyCode() {
+        return creditCurrencyCode;
+    }
+
+    @ManyToOne
     public User getOwner() {
         return owner;
     }
 
+    @ManyToMany
+    @JoinTable(
+            name = "Shop_Employer",
+            joinColumns = @JoinColumn(name = "shop_id"),
+            inverseJoinColumns = @JoinColumn(name = "employer_id")
+    )
     public Set<User> getEmployers() {
         return employers;
     }
@@ -49,6 +68,14 @@ public class Shop extends BaseObject implements Serializable {
         this.id = id;
     }
 
+    public void setDebitCurrencyCode(String debitCurrencyCode) {
+        this.debitCurrencyCode = debitCurrencyCode;
+    }
+
+    public void setCreditCurrencyCode(String creditCurrencyCode) {
+        this.creditCurrencyCode = creditCurrencyCode;
+    }
+
     public void setOwner(User shopOwner) {
         this.owner = shopOwner;
     }
@@ -57,37 +84,4 @@ public class Shop extends BaseObject implements Serializable {
         this.employers = shopEmployers;
     }
 
-    @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this)
-                .append("id", id)
-                .append("name", name)
-                .append("owner", owner)
-                .append("employers",employers)
-                .toString();
-    }
-
-    @Override
-    public boolean equals(final Object other)
-    {
-        if (!(other instanceof Shop))
-            return false;
-        Shop castOther = (Shop) other;
-        return new EqualsBuilder()
-                .append(name, castOther.name)
-                .append(owner, castOther.owner)
-                .append(employers, castOther.employers)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return new HashCodeBuilder()
-                .append(name)
-                .append(owner)
-                .append(employers)
-                .toHashCode();
-    }
 }

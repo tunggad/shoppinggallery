@@ -2,6 +2,8 @@ package com.gadgroup.online.core.model;
 
 import org.appfuse.model.User;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -16,10 +18,51 @@ import java.util.Set;
  *
  * Created by tvu on 27.02.14.
  */
-public class Warehouse {
+@Entity
+public class Warehouse implements Serializable {
     private Long id;
     private String name;
     private Shop shop;
     private Set<User> employers;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @ManyToOne
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "Warehouse_Employer",
+            joinColumns = @JoinColumn(name = "warehouse_id"),
+            inverseJoinColumns = @JoinColumn(name = "employer_id")
+    )
+    public Set<User> getEmployers() {
+        return employers;
+    }
+
+    public void setEmployers(Set<User> employers) {
+        this.employers = employers;
+    }
 }

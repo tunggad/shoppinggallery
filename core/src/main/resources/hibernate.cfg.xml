@@ -8,5 +8,14 @@
     <session-factory>
         <mapping class="org.appfuse.model.User"/>
         <mapping class="org.appfuse.model.Role"/>
+        <mapping class="com.gadgroup.online.core.model.GoodsIssue" />
+        <mapping class="com.gadgroup.online.core.model.GoodsReceipt" />
+        <mapping class="com.gadgroup.online.core.model.GoodsTransport" />
+        <mapping class="com.gadgroup.online.core.model.Warehouse" />
+        <mapping class="com.gadgroup.online.core.model.Shop" />
+        <mapping class="com.gadgroup.online.core.model.ShopProduct" />
+        <mapping class="com.gadgroup.online.core.model.InventoryAtWarehouse" />
+        <mapping class="com.gadgroup.online.core.model.InventoryUpdate" />
+        <mapping class="com.gadgroup.online.core.model.InventoryTransfer" />
     </session-factory>
 </hibernate-configuration>
