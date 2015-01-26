@@ -6,6 +6,9 @@
 
 <hibernate-configuration>
     <session-factory>
+        <property name="hibernate.jdbc.batch_size">50</property>
+        <property name="hibernate.order_inserts">true</property>
+
         <mapping class="org.appfuse.model.User"/>
         <mapping class="org.appfuse.model.Role"/>
         <mapping class="com.gadgroup.online.core.model.GoodsIssue" />
@@ -17,5 +20,6 @@
         <mapping class="com.gadgroup.online.core.model.InventoryAtWarehouse" />
         <mapping class="com.gadgroup.online.core.model.InventoryUpdate" />
         <mapping class="com.gadgroup.online.core.model.InventoryTransfer" />
+        <mapping class="com.gadgroup.online.core.model.Person" />
     </session-factory>
 </hibernate-configuration>

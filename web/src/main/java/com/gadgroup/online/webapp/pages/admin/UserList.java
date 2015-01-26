@@ -1,8 +1,8 @@
 package com.gadgroup.online.webapp.pages.admin;
 
+import com.gadgroup.online.core.service.PersonManager;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.*;
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.GlyphIconType;
-import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
@@ -39,6 +39,9 @@ import java.util.*;
 public class UserList extends AbstractWebPage {
 
     private static final int ROWS_PER_PAGE = 25;
+
+    @SpringBean(name = "personManager")
+    private PersonManager personManager;
 
     @SpringBean(name = "userManager")
     private UserManager userManager;
@@ -97,6 +100,7 @@ public class UserList extends AbstractWebPage {
 
     private AjaxFallbackDefaultDataTable<User, String> createUserListTable() {
         userDataProvider = new UserDataProvider(userManager);
+        userDataProvider.setPersonManager(personManager);
         return new AjaxFallbackDefaultDataTable<User, String>(
                 "userListTable", createColumns(), userDataProvider, ROWS_PER_PAGE);
     }

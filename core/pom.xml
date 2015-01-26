@@ -16,6 +16,7 @@
     
     <build>
         <plugins>
+            <!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>hibernate3-maven-plugin</artifactId>
@@ -82,7 +83,7 @@
                         <version>${jdbc.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin>
+            </plugin> -->
         </plugins>
         <testResources>
             <testResource>
@@ -111,6 +112,37 @@
             <groupId>org.appfuse</groupId>
             <artifactId>appfuse-${dao.framework}</artifactId>
             <version>${appfuse.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.appfuse</groupId>
+                    <artifactId>appfuse-data-common</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.appfuse</groupId>
+            <artifactId>appfuse-data-common</artifactId>
+            <version>3.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-search</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-search-analyzers</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-search</artifactId>
+            <version>4.4.6.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-search-analyzers</artifactId>
+            <version>4.4.6.Final</version>
         </dependency>
     </dependencies>
 </project>

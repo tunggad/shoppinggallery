@@ -145,7 +145,7 @@ public class SignupPageTest extends BasePageTest {
         //then
         tester.assertNoErrorMessage();
 //        Note: there is an additional space at the end of a setence in *.properties file
-        assertInfoMessage("You have successfully registered for access to this application. ");
+        assertInfoMessage("You have successfully registered for access to this application.");
 
         tester.assertRenderedPage(Login.class);
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+                http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+                http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+    <import resource="classpath:/applicationContext-dao.xml" />
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:hibernate.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <context:annotation-config />
+
+    <!-- Component scan to find all Spring components -->
+    <context:component-scan base-package="com.gadgroup.online.batch" />
+
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <constructor-arg ref="hirakiConfig" />
+    </bean>
+
+    <bean id="hirakiConfig" class="com.zaxxer.hikari.HikariConfig">
+        <constructor-arg ref="hikariProps" />
+    </bean>
+
+    <util:properties id="hikariProps" location="classpath:hirakiCP.properties" />
+
+    <!-- Create job-meta tables automatically -->
+    <jdbc:initialize-database data-source="dataSource">
+        <jdbc:script location="org/springframework/batch/core/schema-drop-mysql.sql" />
+        <jdbc:script location="org/springframework/batch/core/schema-mysql.sql" />
+    </jdbc:initialize-database>
+
+
+    <!-- Job Repository: used to persist the state of the batch job -->
+    <bean id="jobRepository" class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+        <property name="transactionManager" ref="transactionManager" />
+    </bean>
+
+
+    <!-- Job Launcher: creates the job and the job state before launching it -->
+    <bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+        <property name="jobRepository" ref="jobRepository" />
+    </bean>
+
+
+    <bean id="personUSReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
+
+        <!-- <property name="resource" value="file:./sample.csv" /> -->
+        <property name="resource" value="file:#{jobParameters['inputFile']}" />
+
+        <property name="linesToSkip" value="1" />
+
+        <property name="lineMapper">
+            <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+
+                <property name="lineTokenizer">
+                    <bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+                        <property name="names" value="first_name, last_name, company_name, address, city, county, state, zip, phone1, phone2, email, web" />
+                    </bean>
+                </property>
+
+                <property name="fieldSetMapper">
+                    <bean class="com.gadgroup.online.batch.USPersonFieldSetMapper" />
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="personUKReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
+
+        <!-- <property name="resource" value="file:./sample.csv" /> -->
+        <property name="resource" value="file:#{jobParameters['inputFile']}" />
+
+        <property name="linesToSkip" value="1" />
+
+        <property name="lineMapper">
+            <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+
+                <property name="lineTokenizer">
+                    <bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+                        <property name="names" value="first_name, last_name, company_name, address, city, county, postal, phone1, phone2, email, web" />
+                    </bean>
+                </property>
+
+                <property name="fieldSetMapper">
+                    <bean class="com.gadgroup.online.batch.UKPersonFieldSetMapper" />
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="personWriter" class="com.gadgroup.online.batch.PersonItemWriter" />
+</beans>

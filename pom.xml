@@ -193,6 +193,7 @@
         <appfuse.version>3.0.0</appfuse.version>
         <bootstrap.version>3.0.0</bootstrap.version>
         <spring.version>4.0.0.RELEASE</spring.version>
+        <spring.batch.version>2.2.1.RELEASE</spring.batch.version>
         <wicket.version>6.13.0</wicket.version>
         <wicketstuff.version>6.13.0</wicketstuff.version>
         <wicket.bootstrap.version>0.9.2</wicket.bootstrap.version>
@@ -238,5 +239,6 @@
   <modules>
     <module>core</module>
     <module>web</module>
+      <module>batch</module>
   </modules>
 </project>

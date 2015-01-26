@@ -24,6 +24,8 @@
                     <webApp>
                         <contextPath>/</contextPath>
                     </webApp>
+                    <stopPort>9966</stopPort>
+                    <stopKey>stopNow</stopKey>
                 </configuration>
             </plugin>
             <!-- clean-up previous hibernate-search indexed from integration tests, as there could be a lock -->

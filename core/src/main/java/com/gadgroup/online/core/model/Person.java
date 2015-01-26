@@ -35,7 +35,6 @@ public class Person implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @DocumentId
     public Long getId() {
         return id;

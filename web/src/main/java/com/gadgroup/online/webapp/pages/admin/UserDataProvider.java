@@ -1,5 +1,7 @@
 package com.gadgroup.online.webapp.pages.admin;
 
+import com.gadgroup.online.core.model.Person;
+import com.gadgroup.online.core.service.PersonManager;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.model.IModel;
@@ -25,6 +27,7 @@ public class UserDataProvider extends SortableDataProvider<User, String> {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
+    private PersonManager personManager;
     private final UserManager userManager;
     private String searchFilter;
 
@@ -47,6 +50,9 @@ public class UserDataProvider extends SortableDataProvider<User, String> {
     public Iterator<? extends User> iterator(long first, long count) {
         //TODO: MZA: How sorting works in Tapestry/Spring MVC? - also in Java?
         List<User> readUsers = userManager.search(searchFilter);
+        List<Person> persons = personManager.searchPerson("James");
+        System.out.println("---- persons found = "+persons.size());
+
 //            Comparator<User> userComparator = UserComparatorResolver.getComparatorBySoftProperty(
 //                    getSort().getProperty(), getSort().isAscending());
 //            Collections.sort(readUsers, userComparator);
@@ -77,5 +83,9 @@ public class UserDataProvider extends SortableDataProvider<User, String> {
                 return loadedUser;
             }
         };
+    }
+
+    public void setPersonManager(PersonManager personManager) {
+        this.personManager = personManager;
     }
 }
